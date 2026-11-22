@@ -1,0 +1,13 @@
+# Copyright 2026 Valters Capital, SIA
+# Licensed under the Apache License, Version 2.0.
+# ValtersIT is a trademark of Valters Capital, SIA — see NOTICE.
+# Maintained by Hugo Valters
+
+node_modules/
+out/
+*.vsix
+.vscode-test/
+.DS_Store
+*.swp
+.env
+*.local

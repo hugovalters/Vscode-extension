@@ -1,0 +1,108 @@
+{
+  "name": "valtersit-cve-scanner",
+  "displayName": "ValtersIT CVE Scanner",
+  "description": "Find known CVEs in your project's dependencies (npm, PyPI, RubyGems, Composer, NuGet) right in the Problems panel. Sends package name + version only.",
+  "version": "1.0.0",
+  "publisher": "valtersit",
+  "author": "Hugo Valters",
+  "license": "Apache-2.0",
+  "homepage": "https://www.valtersit.com/platform/",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/valtersit/vscode-extension.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Linters",
+    "Other"
+  ],
+  "keywords": [
+    "security",
+    "cve",
+    "vulnerability",
+    "dependencies",
+    "sca"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "workspaceContains:**/package-lock.json",
+    "workspaceContains:**/requirements*.txt",
+    "workspaceContains:**/Gemfile.lock",
+    "workspaceContains:**/composer.lock",
+    "workspaceContains:**/packages.lock.json",
+    "workspaceContains:**/*.csproj"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "valtersit.scanWorkspace",
+        "title": "Scan Workspace Dependencies",
+        "category": "ValtersIT"
+      },
+      {
+        "command": "valtersit.setApiKey",
+        "title": "Set API Key",
+        "category": "ValtersIT"
+      },
+      {
+        "command": "valtersit.clearApiKey",
+        "title": "Remove API Key",
+        "category": "ValtersIT"
+      },
+      {
+        "command": "valtersit.confirmAuthorisedUse",
+        "title": "Confirm Authorised Use",
+        "category": "ValtersIT"
+      },
+      {
+        "command": "valtersit.clearDiagnostics",
+        "title": "Clear Findings",
+        "category": "ValtersIT"
+      }
+    ],
+    "configuration": {
+      "title": "ValtersIT CVE Scanner",
+      "properties": {
+        "valtersit.apiBase": {
+          "type": "string",
+          "default": "https://api.valtersit.com/api/v1",
+          "description": "ValtersIT API base URL."
+        },
+        "valtersit.includeDevDependencies": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also scan development dependencies (devDependencies, packages-dev)."
+        },
+        "valtersit.scanOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Scan automatically when a lockfile or manifest is saved."
+        },
+        "valtersit.minimumCvss": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Only show findings with at least this CVSS score."
+        },
+        "valtersit.exclude": {
+          "type": "string",
+          "default": "**/{node_modules,vendor,.venv,venv,bin,obj,dist,build}/**",
+          "description": "Glob of paths never searched for dependency files."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}
